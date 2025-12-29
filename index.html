@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D&D Combat Tracker</title>
+<style>
+  body { font-family: Arial, sans-serif; background-color: #f5f5f5; margin: 0; padding: 10px; color: #222; }
+  h1,h2,h3,h4 { margin:10px 0; }
+  .section { background-color: #e0f0ff; padding: 10px; border-radius:12px; margin-bottom:15px; }
+  label { display:block; margin:5px 0; }
+  input[type="number"] { width:70px; font-size:16px; padding:4px; margin-left:5px; }
+  select { font-size:16px; padding:4px; margin-left:5px; }
+  input[type="checkbox"] { margin-right:8px; }
+  button { font-size:18px; padding:10px 15px; margin-top:10px; background-color:#3399ff; color:white; border:none; border-radius:10px; width:100%; }
+  #riepilogo { padding:10px; border-radius:12px; margin-top:15px; font-size:16px; }
+  .attacco-card { padding:10px; border-radius:10px; margin-bottom:10px; box-shadow:0 1px 4px rgba(0,0,0,0.2); }
+  .attacco-arco { background-color:#d0ebff; }       /* Arco */
+  .attacco-spada { background-color:#d0ffd8; }     /* Spada */
+  .critico { background-color:#ffd6d6; font-weight:bold; }
+  .manyshot { background-color:#fff3b0; }
+  @media (min-width:600px){ input[type="number"],select{ width:100px; } button{ width:auto; } }
+</style>
+</head>
+<body>
+
+<h1>Combattimento</h1>
+
+<h2>Incantesimi Attivi</h2>
+
+<label>
+  <input type="checkbox" id="musicabardica">
+  Musica Bardica (+2 colpire, +2 danni)
+</label><br>
+
+<label>
+  <input type="checkbox" id="haste">
+  Haste (+3 colpire, +1 danni, +1 attacco completo)
+</label><br>
+
+<label>
+  <input type="checkbox" id="goodhope">
+  Good Hope (+2 colpire, +2 danni)
+</label><br><br>
+
+<h2>Talenti Attivi</h2>
+<label><input type="checkbox" id="rapidshot"> Rapid Shot (-2 per colpire, un attacco completo extra)</label><br>
+<label><input type="checkbox" id="pointblank"> Point Blank (Se il nemico si trova entro 6q, +1 per colpire)</label><br>
+<label><input type="checkbox" id="manyshot"> Many Shot (Se il primo attacco colpisce tira 2 volte i danni)</label><br>
+<label><input type="checkbox" id="deadlyaim"> Deadly Aim (-2 per colpire, +4 danni)</label><br><br>
+
+<h2>Tipo di Nemico</h2>
+<label><input type="checkbox" id="nemico_drago"> Drago</label><br>
+<label><input type="checkbox" id="nemico_nano"> Nano</label><br><br>
+
+<button onclick="calcolaTurno()">Calcola Turno</button>
+
+<div id="riepilogo"></div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
