@@ -56,9 +56,13 @@ function generaCampiDadi() {
     const div = document.createElement("div");
     div.className = "attacco-card";
 
+    // Many Shot: secondo dado danni solo se attivo sul primo attacco
     let secondDadoDanni = "";
     if (i === 1 && manyShotAttivo) {
-      secondDadoDanni = `<label>Dado danni Many Shot: <input type="number" id="dadoDanniManyShot${i}" value="0"></label>`;
+      secondDadoDanni = `
+        <label>Dado danni Many Shot: 
+          <input type="number" id="dadoDanniManyShot${i}" inputmode="numeric" pattern="[0-9]*" value="" placeholder="0">
+        </label>`;
     }
 
     div.innerHTML = `
@@ -69,8 +73,12 @@ function generaCampiDadi() {
           <option value="arco" selected>Arco</option>
         </select>
       </label>
-      <label>Dado colpire: <input type="number" id="dadoColpire${i}" value="0"></label>
-      <label>Dado danni: <input type="number" id="dadoDanni${i}" value="0"></label>
+      <label>Dado colpire: 
+        <input type="number" id="dadoColpire${i}" inputmode="numeric" pattern="[0-9]*" value="" placeholder="0">
+      </label>
+      <label>Dado danni: 
+        <input type="number" id="dadoDanni${i}" inputmode="numeric" pattern="[0-9]*" value="" placeholder="0">
+      </label>
       ${secondDadoDanni}
     `;
     container.appendChild(div);
