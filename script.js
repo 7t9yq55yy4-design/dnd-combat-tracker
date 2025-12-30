@@ -78,7 +78,7 @@ function generaCampiDadi() {
 
     let secondDadoDanni = "";
     if (i === 1 && manyShotAttivo) {
-      secondDadoDanni = `<label>Dado danni Many Shot: <input type="number" id="dadoDanniManyShot${i}" value="0"></label>`;
+      secondDadoDanni = `<label>Dado danni Many Shot: <input type="number" id="dadoDanniManyShot${i}" inputmode="numeric" placeholder=""></label>`;
     }
 
     div.innerHTML = `
