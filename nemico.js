@@ -23,9 +23,10 @@ function salvaNemico() {
   nemico.immunita = [...document.querySelectorAll(".immunita:checked")].map(cb => cb.value);
 
   localStorage.setItem("nemico", JSON.stringify(nemico));
-
-  window.location.href = "index.html";
+  
   alert("Nemico salvato");
+  
+  window.location.href = "index.html";
 }
 
 function ripristinaUI() {
