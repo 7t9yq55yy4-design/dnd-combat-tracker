@@ -128,6 +128,13 @@ function calcolaTurno() {
       }
     }
 
+    for (let key in talenti) {
+      if (document.getElementById(key)?.checked) {
+        bonusColpire += talenti[key].colpire || 0;
+        bonusDanni += talenti[key].danni || 0;
+      }
+    }
+
     const totaleColpire = dadoColpire + bonusColpire;
     let danni = dadoDanni + bonusDanni;
 
@@ -148,6 +155,28 @@ function calcolaTurno() {
         colpito = true;
         esito = "✅ COLPITO";
         totaleDanni += danni;
+
+        // ===== MANY SHOT =====
+        if (
+          i === 1 &&
+          document.getElementById("manyshot")?.checked &&
+          document.getElementById(`dadoDanniManyShot${i}`)
+        ) {
+          const dadoMany = parseInt(
+            document.getElementById(`dadoDanniManyShot${i}`).value
+          ) || 0;
+
+          let danniManyShot = dadoMany + bonusDanni;
+
+          // critico NON si applica a many shot (Pathfinder rule)
+          totaleDanni += danniManyShot;
+
+          output += `
+            <div class="attacco-card manyshot">
+              🎯 Many Shot: danni aggiuntivi = ${danniManyShot}
+            </div>
+          `;
+        }
       } else {
         esito = "❌ MANCATO";
       }
@@ -183,7 +212,5 @@ document.body.insertBefore(container, document.getElementById("riepilogo"));
 
 generaCampiDadi();
 document.getElementById("haste")?.addEventListener("change", generaCampiDadi);
-
-for (let key in incantesimi) {
-  document.getElementById(key)?.addEventListener("change", generaCampiDadi);
-}
+document.getElementById("rapidshot")?.addEventListener("change", generaCampiDadi);
+document.getElementById("manyshot")?.addEventListener("change", generaCampiDadi);
