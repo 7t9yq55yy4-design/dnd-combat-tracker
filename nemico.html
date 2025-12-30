@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nemico</title>
+
+  <link rel="apple-touch-icon" href="dnd-logo.png">
+
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      padding: 16px;
+      background: #111;
+      color: #fff;
+    }
+
+    h2 {
+      margin-top: 24px;
+      border-bottom: 1px solid #444;
+      padding-bottom: 4px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      font-size: 18px;
+      padding: 10px;
+      margin-top: 6px;
+    }
+
+    label {
+      display: block;
+      margin: 6px 0;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 24px;
+      padding: 14px;
+      font-size: 18px;
+      background: #8b0000;
+      color: white;
+      border: none;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>🛡️ Nemico</h1>
+
+<h2>Classe Armatura</h2>
+<input type="number" id="caNemico" inputmode="numeric" placeholder="Sconosciuta">
+
+<h2>Tipo di Creatura</h2>
+<label><input type="checkbox" value="drago"> Drago</label>
+<label><input type="checkbox" value="nano"> Nano</label>
+
+<h2>Resistenze</h2>
+<label><input type="checkbox" value="perforante"> Perforante</label>
+<label><input type="checkbox" value="tagliente"> Tagliente</label>
+<label><input type="checkbox" value="fuoco"> Fuoco</label>
+
+<h2>Immunità</h2>
+<label><input type="checkbox" value="veleno"> Veleno</label>
+<label><input type="checkbox" value="fuoco"> Fuoco</label>
+
+<button onclick="salvaNemico()">Salva e torna al combattimento</button>
+
+<script src="nemico.js"></script>
+</body>
+</html>
