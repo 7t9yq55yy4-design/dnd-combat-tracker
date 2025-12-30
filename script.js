@@ -31,6 +31,12 @@ const talenti = {
 };
 
 // --- FUNZIONI UTILI ---
+
+function caricaNemico() {
+  const salvato = localStorage.getItem("nemico");
+  return salvato ? JSON.parse(salvato) : { ca: null };
+}
+
 function calcolaNumeroAttacchi() {
   let totale = personaggio.attacchiBase;
   if (document.getElementById("haste")?.checked) totale += incantesimi.haste.extraAttacco;
@@ -87,22 +93,21 @@ function generaCampiDadi() {
 
 // --- CALCOLO DEL TURNO ---
 function calcolaTurno() {
+  const nemico = caricaNemico();
   const numeroAttacchi = calcolaNumeroAttacchi();
-  let risultato = "";
-  let totaleDanniGlobale = 0;
 
-  const nemicoDrago = document.getElementById("nemico_drago")?.checked;
-  const nemicoNano = document.getElementById("nemico_nano")?.checked;
+  let risultato = "";
+  let totaleDanni = 0;
 
   for (let i = 1; i <= numeroAttacchi; i++) {
-    const armaSelezionata = document.getElementById(`arma${i}`).value;
+
     const dadoColpire = parseInt(document.getElementById(`dadoColpire${i}`).value) || 0;
     const dadoDanni = parseInt(document.getElementById(`dadoDanni${i}`).value) || 0;
 
-    let bonusColpire = bonusColpirePerAttacco(armaSelezionata, i);
-    let bonusDanni = armi[armaSelezionata].bonusDanni;
+    let bonusColpire = bonusColpirePerAttacco(i);
+    let bonusDanni = armi[armaAttiva].bonusDanni;
 
-    // Incantesimi
+    // incantesimi
     for (let key in incantesimi) {
       if (document.getElementById(key)?.checked) {
         bonusColpire += incantesimi[key].colpire || 0;
@@ -110,28 +115,44 @@ function calcolaTurno() {
       }
     }
 
-    // Talenti
-    for (let key in talenti) {
-      if (document.getElementById(key)?.checked) {
-        const talento = talenti[key];
-        if (talento.colpire) bonusColpire += talento.colpire;
-        if (talento.danni) bonusDanni += talento.danni;
+    const totaleColpire = dadoColpire + bonusColpire;
+    let totaleDanniAttacco = dadoDanni + bonusDanni;
 
-        if (talento.bonusNemico) {
-          if (nemicoDrago && talento.bonusNemico.drago) {
-            bonusColpire += talento.bonusNemico.drago.colpire || 0;
-            bonusDanni += talento.bonusNemico.drago.danni || 0;
-          }
-          if (nemicoNano && talento.bonusNemico.nano) {
-            bonusColpire += talento.bonusNemico.nano.colpire || 0;
-            bonusDanni += talento.bonusNemico.nano.danni || 0;
-          }
-        }
+    let esito = "❓ CA sconosciuta";
+    let classe = "attacco-card";
+
+    let colpito = false;
+
+    if (nemico.ca !== null) {
+      if (totaleColpire >= nemico.ca) {
+        esito = "✅ COLPITO";
+        colpito = true;
+        classe += " attacco-colpito";
+        totaleDanni += totaleDanniAttacco;
+      } else {
+        esito = "❌ MANCATO";
+        classe += " attacco-mancato";
       }
     }
 
-    const totaleColpire = dadoColpire + bonusColpire;
-    let totaleDanniAttacco = dadoDanni + bonusDanni;
+    risultato += `
+      <div class="${classe}">
+        <strong>Attacco ${i}</strong><br>
+        Colpire: ${totaleColpire} <br>
+        Danni: ${colpito ? totaleDanniAttacco : 0} <br>
+        ${esito}
+      </div>
+    `;
+  }
+
+  risultato += `
+    <div class="section">
+      <h3>🔥 Totale danni inflitti: ${totaleDanni}</h3>
+    </div>
+  `;
+
+  document.getElementById("riepilogo").innerHTML = risultato;
+}
 
     // --- GESTIONE CRITICO ---
     let criticoMoltiplicatore = 1;
