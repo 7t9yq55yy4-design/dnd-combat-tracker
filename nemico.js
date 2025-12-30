@@ -1,13 +1,14 @@
 function caricaNemico() {
   const salvato = localStorage.getItem("nemico");
+
   return salvato
     ? JSON.parse(salvato)
     : {
         ca: null,
+        tipo: [],
         resistenze: [],
         immunita: [],
-        vulnerabilita: [],
-        tipo: []
+        vulnerabilita: []
       };
 }
 
@@ -17,21 +18,13 @@ function salvaNemico() {
   const ca = document.getElementById("caNemico").value;
   nemico.ca = ca ? parseInt(ca) : null;
 
-  nemico.tipo = [...document.querySelectorAll("h2 + label input:checked")]
-    .filter(el => el.closest("h2").innerText === "Tipo di Creatura")
-    .map(el => el.value);
-
-  nemico.resistenze = [...document.querySelectorAll("h2 + label input:checked")]
-    .filter(el => el.closest("h2").innerText === "Resistenze")
-    .map(el => el.value);
-
-  nemico.immunita = [...document.querySelectorAll("h2 + label input:checked")]
-    .filter(el => el.closest("h2").innerText === "Immunità")
-    .map(el => el.value);
+  nemico.tipo = [...document.querySelectorAll(".tipo:checked")].map(cb => cb.value);
+  nemico.resistenze = [...document.querySelectorAll(".resistenza:checked")].map(cb => cb.value);
+  nemico.immunita = [...document.querySelectorAll(".immunita:checked")].map(cb => cb.value);
 
   localStorage.setItem("nemico", JSON.stringify(nemico));
 
-  window.location.href = "index.html";
+  alert("Nemico salvato");
 }
 
 function ripristinaUI() {
@@ -41,12 +34,9 @@ function ripristinaUI() {
     document.getElementById("caNemico").value = nemico.ca;
   }
 
-  document.querySelectorAll("input[type=checkbox]").forEach(cb => {
-    cb.checked =
-      nemico.tipo.includes(cb.value) ||
-      nemico.resistenze.includes(cb.value) ||
-      nemico.immunita.includes(cb.value);
-  });
+  document.querySelectorAll(".tipo").forEach(cb => cb.checked = nemico.tipo.includes(cb.value));
+  document.querySelectorAll(".resistenza").forEach(cb => cb.checked = nemico.resistenze.includes(cb.value));
+  document.querySelectorAll(".immunita").forEach(cb => cb.checked = nemico.immunita.includes(cb.value));
 }
 
 ripristinaUI();
