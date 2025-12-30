@@ -20,9 +20,27 @@ const armi = {
   }
 };
 
+// ================= TALENTI =================
+const talenti = {
+  rapidshot: { nome: "Rapid Shot", colpire: -2, extraAttacco: 1 },
+  pointblank: { nome: "Point Blank", colpire: 1 },
+  manyshot: { nome: "Many Shot", attacco1DoppioDanno: true },
+  deadlyaim: {
+    nome: "Deadly Aim",
+    colpire: -2,
+    danni: 4,
+    bonusNemico: {
+      drago: { colpire: 4, danni: 4 },
+      nano: { colpire: 2, danni: 2 }
+    }
+  }
+};
+
 // ================= INCANTESIMI =================
 const incantesimi = {
-  haste: { colpire: 3, danni: 1, extraAttacco: 1 }
+  musicabardica: { colpire: 2, danni: 2 },
+  haste: { colpire: 3, danni: 1, extraAttacco: 2 },
+  goodhope: { colpire: 2, danni: 2 }
 };
 
 // ================= NEMICO =================
@@ -34,9 +52,15 @@ function caricaNemico() {
 // ================= NUMERO ATTACCHI =================
 function calcolaNumeroAttacchi() {
   let totale = personaggio.attacchiBase;
-  if (document.getElementById("haste")?.checked) {
-    totale += incantesimi.haste.extraAttacco;
+  
+  // incantesimi con extra attacco
+  for (let key in incantesimi) {
+    const spell = incantesimi[key];
+    if (spell.extraAttacco && document.getElementById(key)?.checked) {
+      totale += spell.extraAttacco;
+    }
   }
+  if (document.getElementById("rapidshot")?.checked) totale += talenti.rapidshot.extraAttacco;
   return totale;
 }
 
@@ -96,9 +120,11 @@ function calcolaTurno() {
     let bonusColpire = bonusColpirePerAttacco(arma, i);
     let bonusDanni = armi[arma].bonusDanni;
 
-    if (document.getElementById("haste")?.checked) {
-      bonusColpire += incantesimi.haste.colpire;
-      bonusDanni += incantesimi.haste.danni;
+    for (let key in incantesimi) {
+      if (document.getElementById(key)?.checked) {
+        bonusColpire += incantesimi[key].colpire || 0;
+        bonusDanni += incantesimi[key].danni || 0;
+      }
     }
 
     const totaleColpire = dadoColpire + bonusColpire;
@@ -156,3 +182,7 @@ document.body.insertBefore(container, document.getElementById("riepilogo"));
 
 generaCampiDadi();
 document.getElementById("haste")?.addEventListener("change", generaCampiDadi);
+
+for (let key in incantesimi) {
+  document.getElementById(key)?.addEventListener("change", generaCampiDadi);
+}
