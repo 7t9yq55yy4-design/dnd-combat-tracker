@@ -69,11 +69,17 @@ function generaCampiDadi() {
   const container = document.getElementById("dadiContainer");
   container.innerHTML = "";
 
+  const manyShotAttivo = document.getElementById("manyshot")?.checked;
   const attacchi = calcolaNumeroAttacchi();
 
   for (let i = 1; i <= attacchi; i++) {
     const div = document.createElement("div");
     div.className = "attacco-card";
+
+    let secondDadoDanni = "";
+    if (i === 1 && manyShotAttivo) {
+      secondDadoDanni = `<label>Dado danni Many Shot: <input type="number" id="dadoDanniManyShot${i}" value="0"></label>`;
+    }
 
     div.innerHTML = `
       <h4>Attacco ${i}</h4>
@@ -92,6 +98,7 @@ function generaCampiDadi() {
       <label>Dado danni:
         <input type="number" id="dadoDanni${i}" inputmode="numeric" placeholder="">
       </label>
+      ${secondDadoDanni}
     `;
 
     container.appendChild(div);
