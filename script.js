@@ -53,13 +53,7 @@ function caricaNemico() {
 function calcolaNumeroAttacchi() {
   let totale = personaggio.attacchiBase;
   
-  // incantesimi con extra attacco
-  for (let key in incantesimi) {
-    const spell = incantesimi[key];
-    if (spell.extraAttacco && document.getElementById(key)?.checked) {
-      totale += spell.extraAttacco;
-    }
-  }
+  if (document.getElementById("haste")?.checked) totale += incantesimi.haste.extraAttacco;
   if (document.getElementById("rapidshot")?.checked) totale += talenti.rapidshot.extraAttacco;
   return totale;
 }
