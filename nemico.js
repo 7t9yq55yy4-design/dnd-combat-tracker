@@ -24,6 +24,7 @@ function salvaNemico() {
 
   localStorage.setItem("nemico", JSON.stringify(nemico));
 
+  window.location.href = "index.html";
   alert("Nemico salvato");
 }
 
