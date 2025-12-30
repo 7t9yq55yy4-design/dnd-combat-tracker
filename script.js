@@ -114,6 +114,7 @@ function calcolaTurno() {
   let totaleDanni = 0;
 
   for (let i = 1; i <= attacchi; i++) {
+    let manyShotOutput = "";
     const arma = document.getElementById(`arma${i}`).value;
     const dadoColpire = parseInt(document.getElementById(`dadoColpire${i}`).value) || 0;
     const dadoDanni = parseInt(document.getElementById(`dadoDanni${i}`).value) || 0;
@@ -171,7 +172,7 @@ function calcolaTurno() {
           // critico NON si applica a many shot (Pathfinder rule)
           totaleDanni += danniManyShot;
 
-          output += `
+          manyShotOutput = `
             <div class="attacco-card manyshot">
               🎯 Many Shot: danni aggiuntivi = ${danniManyShot}
             </div>
@@ -194,6 +195,9 @@ function calcolaTurno() {
         ${esito}
       </div>
     `;
+    if (manyShotOutput) {
+      output += manyShotOutput;
+    }
   }
 
   output += `
