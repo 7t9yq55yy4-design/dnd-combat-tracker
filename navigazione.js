@@ -21,8 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Stato attivo
-  if (pagina.includes("benvenuto")) btnHome?.classList.add("active");
-  if (pagina.includes("index")) btnCombattimento?.classList.add("active");
+  if (pagina.includes("index")) btnHome?.classList.add("active");
+  if (pagina.includes("combattimento")) btnCombattimento?.classList.add("active");
   if (pagina.includes("nemico")) btnNemico?.classList.add("active");
 
   // Salva visibile SOLO su scheda.html
