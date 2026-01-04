@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D&D – I tuoi personaggi</title>
+
+  <!-- Font tematico -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 12px;
+      color: #222;
+    }
+
+    h1 {
+      font-family: "Cinzel", serif;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 12px;
+      background-color: #3399ff;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      width: 100%;
+      margin-bottom: 16px;
+    }
+
+    /* LISTA PERSONAGGI */
+    .character-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .character-card {
+      display: grid;
+      grid-template-columns: 64px 1fr auto;
+      gap: 12px;
+      background-color: #e0f0ff;
+      padding: 12px;
+      border-radius: 14px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+      cursor: pointer;
+      align-items: center;
+    }
+
+    .character-card:hover {
+      background-color: #d4ebff;
+    }
+
+    .class-icon {
+      width: 56px;
+      height: 56px;
+      border: 2px solid #000;
+      border-radius: 50%;
+      background: #eee;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .char-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .char-name {
+      font-family: "Cinzel", serif;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    .char-class {
+      font-size: 0.85rem;
+    }
+
+    .char-subclass {
+      font-size: 0.7rem;
+      color: #333;
+    }
+
+    .char-level {
+      font-size: 1rem;
+      font-weight: bold;
+      border: 2px solid #000;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+    }
+
+    .empty {
+      text-align: center;
+      font-size: 0.9rem;
+      opacity: 0.7;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>I tuoi Personaggi</h1>
+
+  <button onclick="creaNuovo()">➕ Crea nuovo personaggio</button>
+
+  <div class="character-list" id="listaPersonaggi"></div>
+
+  <div class="empty" id="nessunPersonaggio" style="display:none;">
+    Nessun personaggio salvato
+  </div>
+
+  <script>
+    function caricaPersonaggi() {
+      return JSON.parse(localStorage.getItem("personaggi")) || {};
+    }
+
+    function creaNuovo() {
+      localStorage.removeItem("personaggioAttivo");
+      window.location.href = "scheda.html";
+    }
+
+    function apriPersonaggio(id) {
+      localStorage.setItem("personaggioAttivo", id);
+      window.location.href = "scheda.html";
+    }
+
+    function mostraLista() {
+      const lista = document.getElementById("listaPersonaggi");
+      const vuoto = document.getElementById("nessunPersonaggio");
+      const personaggi = caricaPersonaggi();
+
+      lista.innerHTML = "";
+
+      const ids = Object.keys(personaggi);
+
+      if (ids.length === 0) {
+        vuoto.style.display = "block";
+        return;
+      }
+
+      vuoto.style.display = "none";
+
+      ids.forEach(id => {
+        const p = personaggi[id];
+
+        const card = document.createElement("div");
+        card.className = "character-card";
+        card.onclick = () => apriPersonaggio(id);
+
+        const icon = document.createElement("div");
+        icon.className = "class-icon";
+        if (p.classIcon) icon.style.backgroundImage = p.classIcon;
+
+        const info = document.createElement("div");
+        info.className = "char-info";
+        info.innerHTML = `
+          <div class="char-name">${p.nomeP || "Senza nome"}</div>
+          <div class="char-class">${p.classe || "Classe sconosciuta"}</div>
+          <div class="char-subclass">${p.specializzazione || ""}</div>
+        `;
+
+        const lvl = document.createElement("div");
+        lvl.className = "char-level";
+        lvl.textContent = p.livello || 1;
+
+        card.appendChild(icon);
+        card.appendChild(info);
+        card.appendChild(lvl);
+
+        lista.appendChild(card);
+      });
+    }
+
+    mostraLista();
+  </script>
+
+<nav class="bottom-bar">
+  <button class="tab-btn" id="btnHome">🏠</button>
+  <button class="tab-btn" id="btnCombattimento">⚔️</button>
+  <button class="tab-btn" id="btnNemico">👹</button>
+  <button id="btnSalva" class="hidden">💾</button>
+</nav>
+
+    <script src="navigazione.js"></script>
+
+</body>
+</html>

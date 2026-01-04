@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D Combat Tracker</title>
+    <link rel="stylesheet" href="css/style.css">    
+</head>
+<body>
+
+    <div class="top-bar">
+    <button onclick="window.location.href='benvenuto.html'">⚔️ Home</button>
+    <button onclick="window.location.href='index.html'">⚔️ Combattimento</button>
+    <button onclick="window.location.href='nemico.html'">⚔️ Nemico</button>
+    </div>
+
+        <header class="sheet-header">
+
+        <!-- SINISTRA -->
+        <div class="header-left">
+            <div class="field">
+            <label>Nome Giocatore</label>
+            <input type="text" id="nomeGInput">
+            </div>
+
+            <div class="row">
+            <div class="field">
+                <label>Background</label>
+                <input type="text" id="bg">
+            </div>
+            <div class="field">
+                <label>Allineamento</label>
+                <input type="text" id="allineamento">
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="field">
+                <label>Specie</label>
+                <input type="text" id="specie">
+            </div>
+            <div class="field small">
+                <label>Taglia</label>
+                <input type="text" id="taglia">
+            </div>
+            <div class="field small">
+                <label>XP</label>
+                <input type="number" id="xp">
+            </div>
+            </div>
+        </div>
+
+        <!-- CENTRO -->
+        <div class="header-center">
+            <input class="character-name" type="text" id="nomeP" placeholder="Nome del Personaggio">
+        </div>
+
+        <!-- DESTRA -->
+        <div class="header-right">
+            <div class="class-icon" id="classIcon"></div>
+
+            <div class="class-info">
+            <div class="class-name">Classe</div>
+                <select id="classe" name="classe">
+                    <option value="">-- Seleziona Classe --</option>
+                    <option value="Barbaro">Barbaro</option>
+                    <option value="Bardo">Bardo</option>
+                    <option value="Chierico">Chierico</option>
+                    <option value="Druido">Druido</option>
+                </select>
+            <div class="subclass">
+                <select id="specializzazione">
+                    <option value="">-- Specializzazione --</option>
+                </select>
+            </div>
+            </div>
+
+            <div class="level">
+            <label>Livello</label>
+            <input type="number" value="1" id="livello">
+            </div>
+        </div>
+
+        </header>
+
+    <h1>Scheda del personaggio</h1>
+
+    <h2>Caratteristiche</h2>
+
+    <div class="section stats">
+        <div class="stat">
+            <h3>Forza</h3>
+            <input type="number" id="forzScheda" inputmode="numeric" placeholder="0">
+            <div class="mod" id="modFor">+0</div>
+        </div>
+        <div class="stat">
+            <h3>Destrezza</h3>
+            <input type="number" id="desScheda" inputmode="numeric" placeholder="0">
+            <div class="mod" id="modDes">+0</div>
+        </div>
+        <div class="stat">
+            <h3>Costituzione</h3>
+            <input type="number" id="cosScheda" inputmode="numeric" placeholder="0">
+            <div class="mod" id="modCos">+0</div>
+        </div>
+        <div class="stat">
+            <h3>Intelligenza</h3>
+            <input type="number" id="intScheda" inputmode="numeric" placeholder="0">
+            <div class="mod" id="modInt">+0</div>
+        </div>
+        <div class="stat">
+            <h3>Saggezza</h3>
+            <input type="number" id="sagScheda" inputmode="numeric" placeholder="0">
+            <div class="mod" id="modSag">+0</div>
+        </div>
+        <div class="stat">
+            <h3>Carisma</h3>
+            <input type="number" id="carScheda" inputmode="numeric" placeholder="0">
+            <div class="mod" id="modCar">+0</div>
+        </div>
+    </div>
+
+    <script src="scheda.js"></script>
+
+    <nav class="bottom-bar">
+        <button class="tab-btn" id="btnHome">🏠</button>
+        <button class="tab-btn" id="btnCombattimento">⚔️</button>
+        <button class="tab-btn" id="btnNemico">👹</button>
+        <button id="btnSalva" class="hidden">💾</button>
+    </nav>
+
+    <script src="navigazione.js"></script>
+
+</body>
+</html>
