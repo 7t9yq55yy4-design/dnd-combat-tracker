@@ -9,11 +9,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Navigazione
   if (btnHome) {
-    btnHome.onclick = () => window.location.href = "benvenuto.html";
+    btnHome.onclick = () => window.location.href = "index.html";
   }
 
   if (btnCombattimento) {
-    btnCombattimento.onclick = () => window.location.href = "index.html";
+    btnCombattimento.onclick = () => window.location.href = "combattimento.html";
   }
 
   if (btnNemico) {
