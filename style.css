@@ -1,3 +1,8 @@
+* {
+    box-sizing: border-box;
+    min-width: 0;
+}
+
 .sheet-header {
 display: grid;
 grid-template-columns: 1.2fr 1.6fr 1fr;
@@ -21,13 +26,9 @@ font-size: 0.8rem;
 background: transparent;
 }
 
-.row {
-display: flex;
-gap: 8px;
-}
-
 .field.small {
-width: 70px;
+max-width: 70px;
+width: 100%;
 }
 
 /* SINISTRA */
@@ -131,7 +132,6 @@ margin:5px 0;
 }
 
 input[type="number"] {
-width:70px;
 font-size:16px;
 padding:4px;
 margin-left:5px;
@@ -178,8 +178,10 @@ box-shadow:0 1px 4px rgba(0,0,0,0.2);
 .manyshot { background-color:#fff3b0; }
 
 .stats {
-display: flex;
-  gap: 9px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .stat {
@@ -258,6 +260,27 @@ body {
 padding-bottom: 120px;
 }
 
+.stats {
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .monster-main-stats .row {
+    flex-direction: column;
+  }
+
+  .monster-combat-row {
+    flex-direction: column;
+}
+
+.row {
+    flex-direction: column;
+}
+
+.header-right {
+    grid-template-columns: 1fr;
+}
+
 }
 
 /* Spazio extra sotto la pagina */
@@ -328,18 +351,6 @@ font-size: 22px;
   gap: 12px;
 }
 
-@media (max-width:768px) {
-
-  .stats {
-    overflow-x: auto;
-    padding-bottom: 8px;
-  }
-
-  .monster-main-stats .row {
-    flex-direction: column;
-  }
-}
-
 .delete-btn {
     font-size:18px;
     padding:10px 15px;
@@ -359,6 +370,7 @@ font-size: 22px;
     display: flex;
     gap: 12px;
     margin: 20px 0;
+    flex-wrap: wrap;
 }
 
 .combat-field {
@@ -403,8 +415,9 @@ font-size: 22px;
 }
 
 .row {
-    display: flex;
-    gap: 10px;
+display: flex;
+gap: 10px;
+flex-wrap: wrap;
 }
 
 .row .field {
@@ -432,4 +445,16 @@ font-size: 22px;
 }
 .auto-expand {
     transition: height 0.05s ease;
+}
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+* {
+    box-sizing: border-box;
+}
+input,
+select,
+textarea {
+    font-size: 16px !important;
 }
