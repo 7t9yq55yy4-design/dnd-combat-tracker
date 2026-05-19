@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (btnNemico) {
-    btnNemico.onclick = () => window.location.href = "nemico.html";
+    btnNemico.onclick = () => window.location.href = "mostri.html";
   }
 
   // Stato attivo

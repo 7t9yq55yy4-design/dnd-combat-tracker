@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D&D – I tuoi mostri</title>
+
+  <!-- Font tematico -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 12px;
+      color: #222;
+    }
+
+    h1 {
+      font-family: "Cinzel", serif;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 12px;
+      background-color: #3399ff;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      width: 100%;
+      margin-bottom: 16px;
+    }
+
+    /* LISTA mostri */
+    .character-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .character-card {
+      display: grid;
+      grid-template-columns: 64px 1fr auto;
+      gap: 12px;
+      background-color: #e0f0ff;
+      padding: 12px;
+      border-radius: 14px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+      cursor: pointer;
+      align-items: center;
+    }
+
+    .character-card:hover {
+      background-color: #d4ebff;
+    }
+
+    .class-icon {
+      width: 56px;
+      height: 56px;
+      border: 2px solid #000;
+      border-radius: 50%;
+      background: #eee;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .char-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .char-name {
+      font-family: "Cinzel", serif;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    .char-class {
+      font-size: 0.85rem;
+    }
+
+    .char-subclass {
+      font-size: 0.7rem;
+      color: #333;
+    }
+
+    .char-level {
+      font-size: 1rem;
+      font-weight: bold;
+      border: 2px solid #000;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+    }
+
+    .empty {
+      text-align: center;
+      font-size: 0.9rem;
+      opacity: 0.7;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Mostri registrati</h1>
+
+  <button onclick="creaNuovo()">➕ Crea nuovo mostro</button>
+
+  <div class="filters">
+
+    <input 
+        type="text"
+        id="searchInput"
+        placeholder="Cerca mostro..."
+    >
+
+    <select id="filterCategoria">
+        <option value="Tutti">Tutti</option>
+        <option value="Mostro">Mostro</option>
+        <option value="Nemico">Nemico</option>
+        <option value="Alleato">Alleato</option>
+    </select>
+
+</div>
+
+  <div class="character-list" id="listaMostri"></div>
+
+  <div class="empty" id="nessunMostro" style="display:none;">
+    Nessun mostro salvato
+  </div>
+
+  <script>
+    function caricaMostro() {
+      return JSON.parse(localStorage.getItem("mostri")) || {};
+    }
+
+    function creaNuovo() {
+      localStorage.removeItem("mostroAttivo");
+      window.location.href = "scheda_mostro.html";
+    }
+
+    function apriMostro(id) {
+      localStorage.setItem("mostroAttivo", id);
+      window.location.href = "scheda_mostro.html";
+    }
+
+    function mostraLista() {
+      const lista = document.getElementById("listaMostri");
+      const vuoto = document.getElementById("nessunMostro");
+      const mostri = caricaMostro();
+
+        const search = document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+        const categoriaFiltro = document
+        .getElementById("filterCategoria")
+        .value;
+
+      lista.innerHTML = "";
+
+      const ids = Object.keys(mostri);
+
+      if (ids.length === 0) {
+        vuoto.style.display = "block";
+        return;
+      }
+
+      vuoto.style.display = "none";
+
+      ids.forEach(id => {
+        const p = mostri[id];
+
+        // FILTRO RICERCA
+    const nome = (p.nomeM || "").toLowerCase();
+
+    if (!nome.includes(search)) {
+      return;
+    }
+
+    // FILTRO CATEGORIA
+    if (
+      categoriaFiltro !== "Tutti" &&
+      p.categoria !== categoriaFiltro
+    ) {
+      return;
+    }
+
+        const card = document.createElement("div");
+        card.className = "character-card";
+        card.onclick = () => apriMostro(id);
+
+        const icon = document.createElement("div");
+        icon.className = "class-icon";
+        if (p.classIcon) icon.style.backgroundImage = p.classIcon;
+
+        const info = document.createElement("div");
+        info.className = "char-info";
+        info.innerHTML = `
+            <div class="char-name">${p.nomeM || "Senza nome"}</div>
+            <div class="char-class">Taglia: ${p.taglia || "-"}</div>
+            <div class="char-subclass">
+                ${p.categoria || "Mostro"} • ${p.allineamento || ""}
+            </div>
+        `;
+
+        const lvl = document.createElement("div");
+        lvl.className = "char-level";
+        lvl.textContent = p.GS || 1;
+
+        card.appendChild(icon);
+        card.appendChild(info);
+        card.appendChild(lvl);
+
+        lista.appendChild(card);
+      });
+
+      document
+  .getElementById("searchInput")
+  .addEventListener("input", mostraLista);
+
+document
+  .getElementById("filterCategoria")
+  .addEventListener("change", mostraLista);
+    }
+
+    mostraLista();
+  </script>
+
+<nav class="bottom-bar">
+  <button class="tab-btn" id="btnHome">🏠</button>
+  <button class="tab-btn" id="btnCombattimento">⚔️</button>
+  <button class="tab-btn" id="btnNemico">👹</button>
+  <button id="btnSalva" class="hidden">💾</button>
+</nav>
+
+    <script src="navigazione.js"></script>
+
+</body>
+</html>

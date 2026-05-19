@@ -238,7 +238,8 @@ function ripristinaScheda() {
       "Barbaro": ["Berserker", "Totemico", "Furia del Clan"],
       "Bardo": ["Valoroso", "Lore", "Maestro delle Spade"],
       "Chierico": ["Dominio Vita", "Dominio Guerra", "Dominio Conoscenza"],
-      "Druido": ["Cerchio della Luna", "Cerchio della Terra", "Cerchio della Vita"]
+      "Druido": ["Cerchio della Luna", "Cerchio della Terra", "Cerchio della Vita"],
+      "Mago": ["Necromante", "Divinazione", "Abiurazione"]
     };
 
     if (specSelect && classSpecializzazioni[scheda.classe]) {
@@ -293,7 +294,8 @@ const classSpecializzazioni = {
   "Barbaro": ["Berserker", "Totemico"],
   "Bardo": ["Valoroso", "Lore", "Maestro delle Spade"],
   "Chierico": ["Dominio Vita", "Dominio Guerra", "Dominio Conoscenza"],
-  "Druido": ["Cerchio della Luna", "Cerchio della Terra", "Cerchio della Vita"]
+  "Druido": ["Cerchio della Luna", "Cerchio della Terra", "Cerchio della Vita"],
+  "Mago": ["Necromante", "Divinazione", "Abiurazione"]
 };
 
 // Quando cambia la classe

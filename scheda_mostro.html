@@ -13,72 +13,64 @@
         <!-- SINISTRA -->
         <div class="header-left">
             <div class="field">
-            <label>Nome Giocatore</label>
-            <input type="text" id="nomeGInput">
+            <label>Nome mostro</label>
+            <input type="text" id="nomeMInput">
             </div>
 
             <div class="row">
-            <div class="field">
-                <label>Background</label>
-                <input type="text" id="bg">
-            </div>
             <div class="field">
                 <label>Allineamento</label>
                 <input type="text" id="allineamento">
             </div>
             </div>
 
-            <div class="row">
-            <div class="field">
-                <label>Specie</label>
-                <input type="text" id="specie">
-            </div>
             <div class="field small">
                 <label>Taglia</label>
                 <input type="text" id="taglia">
             </div>
-            <div class="field small">
-                <label>XP</label>
-                <input type="number" id="xp">
-            </div>
-            </div>
-        </div>
-
-        <!-- CENTRO -->
-        <div class="header-center">
-            <input class="character-name" type="text" id="nomeP" placeholder="Nome del Personaggio">
         </div>
 
         <!-- DESTRA -->
         <div class="header-right">
-            <div class="class-icon" id="classIcon"></div>
 
-            <div class="class-info">
-            <div class="class-name">Classe</div>
-                <select id="classe" name="classe">
-                    <option value="">-- Seleziona Classe --</option>
-                    <option value="Barbaro">Barbaro</option>
-                    <option value="Bardo">Bardo</option>
-                    <option value="Chierico">Chierico</option>
-                    <option value="Druido">Druido</option>
-                    <option value="Mago">Mago</option>
-                </select>
-            <div class="subclass">
-                <select id="specializzazione">
-                    <option value="">-- Specializzazione --</option>
-                </select>
-            </div>
+            <div class="GS">
+            <label>Grado Sfida</label>
+            <input type="number" value="1" id="GS">
             </div>
 
-            <div class="level">
-            <label>Livello</label>
-            <input type="number" value="1" id="livello">
+            <div class="field small">
+                <label>Categoria</label>
+
+                <select id="categoria">
+                    <option value="Mostro">Mostro</option>
+                    <option value="Nemico">Nemico</option>
+                    <option value="Alleato">Alleato</option>
+                </select>
             </div>
         </div>
 
         </header>
 
-    <h1>Scheda del personaggio</h1>
+    <h1>Scheda del mostro</h1>
+
+    <div class="monster-combat-row">
+
+    <div class="combat-field">
+        <label>Classe Armatura</label>
+        <input type="number" id="CA">
+    </div>
+
+    <div class="combat-field">
+        <label>Punti Ferita</label>
+        <input type="number" id="PF">
+    </div>
+
+    <div class="combat-field">
+        <label>Velocità</label>
+        <input type="text" id="velocita" placeholder="9m">
+    </div>
+
+</div>
 
     <h2>Caratteristiche</h2>
 
@@ -113,15 +105,46 @@
             <input type="number" id="carScheda" inputmode="numeric" placeholder="0">
             <div class="mod" id="modCar">+0</div>
         </div>
+    
     </div>
 
-    <script src="scheda.js"></script>
+    <div>
+
+        <div class="row">
+
+            <div class="field">
+                <label>Skill e Talenti</label>
+                <textarea id="skill" class="auto-expand"></textarea>
+            </div>
+
+    </div>
+
+     <hr class="monster-separator">
+
+        <div class="column">
+
+            <div class="field">
+                <label>Azioni</label>
+                <textarea id="azioni" class="auto-expand"></textarea>
+            </div>
+
+            <div class="field">
+                <label>Reazioni</label>
+                <textarea id="reazioni" class="auto-expand"></textarea>
+            </div>
+
+    </div>
+        </div>
+    </div>
+</div>
+    <script src="scheda_mostro.js"></script>
 
     <nav class="bottom-bar">
         <button class="tab-btn" id="btnHome">🏠</button>
         <button class="tab-btn" id="btnCombattimento">⚔️</button>
         <button class="tab-btn" id="btnNemico">👹</button>
         <button id="btnSalva" class="hidden">💾</button>
+        <button id="btnEliminaMostro" class="delete-btn">🗑</button>
     </nav>
 
     <script src="navigazione.js"></script>

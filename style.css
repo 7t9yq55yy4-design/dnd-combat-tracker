@@ -287,3 +287,149 @@ background: none;
 border: none;
 font-size: 22px;
 }
+/* =========================
+   MOSTRI
+========================= */
+
+.monster-card {
+  background: #e0f0ff;
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.monster-card h3 {
+  margin: 0 0 6px 0;
+}
+
+.monster-card p {
+  margin: 2px 0;
+}
+
+.monster-page textarea {
+  width: 100%;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.monster-header {
+  margin-bottom: 16px;
+}
+
+.monster-header .row {
+  margin-top: 10px;
+}
+
+.monster-main-stats .row {
+  display: flex;
+  gap: 12px;
+}
+
+@media (max-width:768px) {
+
+  .stats {
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .monster-main-stats .row {
+    flex-direction: column;
+  }
+}
+
+.delete-btn {
+    font-size:18px;
+    padding:10px 15px;
+    margin-top:10px;
+    background-color: #b22222;
+    color:white;
+    border:none;
+    border-radius:10px;
+    width:100%;
+}
+
+.delete-btn:hover {
+    background-color: #8b1a1a;
+}
+
+.monster-combat-row {
+    display: flex;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.combat-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.combat-field label {
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+
+.combat-field input {
+    padding: 10px;
+    border: 1px solid #999;
+    border-radius: 10px;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.filters input,
+.filters select {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #999;
+    font-size: 1rem;
+}
+
+.monster-separator {
+    border: none;
+    border-top: 2px solid #bbb;
+    margin: 14px 0;
+}
+
+.row {
+    display: flex;
+    gap: 10px;
+}
+
+.row .field {
+    flex: 1;
+}
+
+.auto-expand {
+    width: 100%;
+    min-height: 80px;
+
+    resize: none;
+    overflow-y: hidden;
+
+    padding: 10px;
+
+    border: 1px solid #999;
+    border-radius: 10px;
+
+    font-size: 1rem;
+    font-family: inherit;
+
+    line-height: 1.4;
+
+    box-sizing: border-box;
+}
+.auto-expand {
+    transition: height 0.05s ease;
+}
