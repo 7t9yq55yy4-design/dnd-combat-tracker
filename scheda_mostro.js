@@ -106,7 +106,10 @@ function salvaScheda() {
   scheda.skill = skill;
 
   const azioni = document.getElementById("azioni").value;
-  scheda.azioni = azioni
+  scheda.azioni = azioni;
+
+  const reazioni = document.getElementById("reazioni").value;
+  scheda.reazioni = reazioni
 
 
   // 🔹 MULTI PERSONAGGIO
@@ -176,6 +179,9 @@ function resetScheda() {
     "CA",
     "PF",
     "velocita",
+    "skill",
+    "azioni",
+    "reazioni"
   ];
 
   // Ciclo e svuoto tutti i campi
@@ -252,7 +258,8 @@ function ripristinaScheda() {
   setValue("GS", scheda.GS);
   setValue("tipoCreatura", scheda.tipoCreatura);
   setValue("skill", scheda.skill);
-  setValue("organizzazione", scheda.organizzazione);
+  setValue("azioni", scheda.azioni);
+  setValue("reazioni", scheda.reazioni);
 
 }
 
